@@ -121,8 +121,6 @@ private:
     auto start = span.start_pos();
     auto stop = span.stop_pos();
 
-    std::cout << "HL from " << start.col_no << " -> " << stop.col_no
-              << std::endl;
     auto line = span.file.source_line_index(start.line_no);
 
     auto pre_context_count = (span.start - 1 - line.start_idx) + 1;
