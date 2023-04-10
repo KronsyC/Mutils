@@ -18,5 +18,9 @@ endif()
 
 file(GLOB_RECURSE sources src/*.cc src/*.cpp include/*.h)
 
-
-add_library(mutils STATIC ${sources})
+if(DEV)
+    file(GLOB_RECURSE dev_sources dev/*.cc)
+    add_executable(mutils ${sources} ${dev_sources})
+else()
+    add_library(mutils STATIC ${sources})
+endif()
