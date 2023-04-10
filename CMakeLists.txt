@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.20)
+# Cmake 3.25+ has C++ module support
+cmake_minimum_required(VERSION 3.25)
 
 project(mutils)
 
@@ -15,7 +16,7 @@ else()
     add_compile_options(-O3)
 endif()
 
-file(GLOB_RECURSE sources src/*.cc src/*.cpp)
+file(GLOB_RECURSE sources src/*.cc src/*.cpp include/*.h)
 
 
-add_library(mutils STATIC ${sources})
+add_executable(mutils ${sources})
