@@ -19,4 +19,4 @@ endif()
 file(GLOB_RECURSE sources src/*.cc src/*.cpp include/*.h)
 
 
-add_executable(mutils ${sources})
+add_library(mutils STATIC ${sources})
