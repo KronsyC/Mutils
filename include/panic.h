@@ -1,19 +1,11 @@
 #pragma once
 
-#include "ansi.h"
-#include "funcmod.h"
 #include <iostream>
-
+#include<string>
 namespace mutils {
-[[noreturn]] INLINE inline void PANIC(const char *msg) {
-  std::cerr << mutils::ansi::FormatBuilder()
-                   .fg(mutils::ansi::Color::Red)
-                   .bold()
-                   .write("panic: ")
-                   .reset()
-                   .write(msg)
-                   .str()
-            << std::endl;
+[[noreturn]] __attribute__((always_inline)) inline void PANIC(std::string msg) {
+  std::string panic = "\033[0;31;1mpanic:  \033[0;0m";
+  std::cerr << panic << msg << std::endl;
   exit(1);
 }
 }; // namespace mutils
