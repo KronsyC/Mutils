@@ -1,15 +1,15 @@
 /// Copyright (c) 2023 Samir Bioud
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in all
 /// copies or substantial portions of the Software.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 /// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 /// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -17,44 +17,58 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 /// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
-///
-
+/// 
 
 #pragma once
 
-#include <string>
-#include <vector>
+#include<string>
 
-namespace mutils {
+namespace mutils{
 
-struct ProgramEnvironment {
+//
+// The mutils logger provides multiple log message formats that can be used
+// 1 ) Plaintext
+// 2 ) Structured (JSON)
+// 3 ) Structured (Binary)
 
-  struct EnvEntry {
-    std::string name;
+struct LogMessageContent{
 
-    /**
-     * Assign the environment variable
-     */
-    void operator=(char const* value);
+  std::string log_message_encoded_as_str;
 
-    operator char const*();
-
-    /**
-     * Clear the value of the current variable in the environment
-     */
-    void clear();
-  };
-
-  EnvEntry operator[](std::string var_name);
-
-  /*
-   * Clear the values of all variables in the environment
-   */
-  void clear();
-
-  std::vector<std::string> list_vars();
 };
 
-inline ProgramEnvironment env;
+//
+// We accept any type which can convert to a string
+//
+struct PlaintextLogMessageContent : LogMessageContent{
 
-}; // namespace mutils
+
+  template<typename... TemplateTypes>
+  PlaintextLogMessageContent(std::string, TemplateTypes... formatting){
+    // TODO: Implement templating
+  }
+
+  PlaintextLogMessageContent(std::string content){
+    log_message_encoded_as_str = content;
+  }
+
+};
+
+//
+// The values can be any type which expose the method 
+// encode_json() -> std::string
+//
+struct JSONStructuredLogMessageContent : LogMessageContent{
+  // TODO: Implement me
+};
+
+//
+// The values can be of any type which expose the method
+// encode_binary() -> std::vector<any integer type>
+// (we write as big-endian)
+//
+struct BinaryStructuredLogMessageContent : LogMessageContent {
+  // TODO: Implement me
+};
+
+};

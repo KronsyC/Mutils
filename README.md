@@ -39,16 +39,27 @@ This library consists of many components, each of which help tackle a different 
 - `result`    
   Exposes the `Result<T,E>` class which is heavily inspired by Rust's solution of the same name
 
+- `stringify`
+  Attempt to cast any value to a string using a variety of common methods
+
 - `panic`    
   Provides a simple function to exit the program with an error message.
 
 - `polyvec`   
-  A **poly**morphic **vec**tor. A simple wrapper around the c++ STL vector which supports    
-  polymorphism
+  A **poly**morphic **vec**tor. A simple wrapper around the c++ STL vector which retains RTTI 
 
 - `env`    
   An interface for interacting with the local environment variables
 
-  
+- `progbar`   
+  Utility for building terminal-based progress bars
 
+- `trie`    
+  Simple prefix-tree implementation
+
+- `file`    
+    Tool for reading text files
+
+- `highlighter`    
+    Tool for printing out highlighted sections of files in the terminal
 

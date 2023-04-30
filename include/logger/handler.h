@@ -19,42 +19,67 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 ///
 
-
 #pragma once
 
-#include <string>
-#include <vector>
-
+#include "logentry.h"
+#include<ostream>
+#include<iostream>
 namespace mutils {
 
-struct ProgramEnvironment {
+//
+// Loghandlers act as a way to provide custom internal logging mechanisms
+// to the basic logger class
+//
+struct LogHandler {
 
-  struct EnvEntry {
-    std::string name;
-
-    /**
-     * Assign the environment variable
-     */
-    void operator=(char const* value);
-
-    operator char const*();
-
-    /**
-     * Clear the value of the current variable in the environment
-     */
-    void clear();
-  };
-
-  EnvEntry operator[](std::string var_name);
-
-  /*
-   * Clear the values of all variables in the environment
-   */
-  void clear();
-
-  std::vector<std::string> list_vars();
+  void on_log_create(LogEntry entry);
 };
 
-inline ProgramEnvironment env;
+//
+// The default log-handling behavior
+//
+struct StreamLogHandler : LogHandler {
+
+  struct StreamLogHandlerConfiguration{
+    bool colorize;
+
+    std::ostream const* info_out = &std::cout;
+    std::ostream const* warn_out = &std::cerr;
+    std::ostream const* debug_out = &std::cout;
+    std::ostream const* fatal_out = &std::cerr;
+    std::ostream const* trace_out = &std::cout;
+   
+    std::string log_format = "";
+  };
+
+
+  using Config_T = StreamLogHandlerConfiguration;
+
+
+
+  void on_log_create(LogEntry entry) {
+    switch (entry.level) {
+      case LogLevel::Info: {
+        break;
+      }
+      case LogLevel::Warn: {
+        break;
+      }
+      case LogLevel::Debug: {
+        break;
+      }
+      case LogLevel::Error: {
+        break;
+      }
+      case LogLevel::Fatal: {
+        break;
+      }
+      case LogLevel::Trace: {
+        break;
+      }
+    }
+  }
+};
+
 
 }; // namespace mutils
