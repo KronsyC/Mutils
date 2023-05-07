@@ -9,7 +9,8 @@ mutils = static_library(
   'src/ansi.cc',
   'src/env.cc',
   include_directories : inc,
-  install : true
+  install : true,
+  cpp_args: ['-std=c++20']
 ) 
 
 
