@@ -1,4 +1,4 @@
-project('mutils', 'c++')
+project('mutils', 'cpp')
 
 inc = include_directories('include')
 
