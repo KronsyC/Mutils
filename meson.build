@@ -17,5 +17,6 @@ mutils = static_library(
 
 mutils_dep = declare_dependency(
   include_directories : inc,
-  link_with: mutils
+  link_with: mutils,
+  compile_args: ['-std=c++20']
   )
