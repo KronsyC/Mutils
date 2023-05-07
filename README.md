@@ -9,16 +9,8 @@
 
 
 
-## Building
+<!-- ## Building -->
 
- Mutils is configured to generate a simple shared library file to be linked into your project.
- To build the library, simply run:
-```bash
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
 
 
 ## Usage
