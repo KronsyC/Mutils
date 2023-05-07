@@ -25,7 +25,7 @@
 #include <filesystem>
 
 #include "fcntl.h"
-#include "panic.h"
+#include "./panic.h"
 #include "sys/mman.h"
 #include "sys/stat.h"
 #include <cstdlib>

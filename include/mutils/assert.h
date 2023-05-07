@@ -21,7 +21,7 @@
 
 
 #pragma once
-#include "panic.h"
+#include "./panic.h"
 
 #ifndef NDEBUG
 

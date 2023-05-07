@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "funcmod.h"
+#include "./funcmod.h"
 #include <inttypes.h>
 #include <string>
 

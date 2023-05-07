@@ -29,8 +29,8 @@
 
 #pragma once
 
-#include "ansi.h"
-#include "progbar_renderer.h"
+#include "./ansi.h"
+#include "./progbar_renderer.h"
 #include <iostream>
 #include <stdexcept>
 

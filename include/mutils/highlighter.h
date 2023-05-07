@@ -31,8 +31,8 @@
 
 #pragma once
 
-#include "ansi.h"
-#include "file.h"
+#include "./ansi.h"
+#include "./file.h"
 #include <algorithm>
 #include <cstdint>
 
