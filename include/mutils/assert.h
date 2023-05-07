@@ -31,7 +31,7 @@
 
 #  define MUTILS_ASSERT(expr, error)                                                                                   \
     if (!(bool)(expr)) {                                                                                               \
-      mutils::panic(std::string("[[Assertion Error @ " __FILE__ ":" COMPTIME_STRINGIFY(__LINE__) "]] -> ") + error);   \
+      mutils::PANIC(std::string("[[Assertion Error @ " __FILE__ ":" COMPTIME_STRINGIFY(__LINE__) "]] -> ") + error);   \
       exit(1);                                                                                                         \
     }
 
