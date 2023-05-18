@@ -34,7 +34,6 @@
 namespace mutils {
 
 class ArgReader {
-
   //
   // -foo    | Enable the 'foo' flag  (boolean)
   // -foo-   | Disable the 'foo' flag (boolean)

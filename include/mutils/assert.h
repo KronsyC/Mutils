@@ -39,13 +39,16 @@
     }
 
 #  define MUTILS_BINARY_ASSERTION_ERROR(a, b, operator_name, operator_symbol, errmsg)                                  \
-    auto a_eval = a;                                                                                                   \
-    auto b_eval = b;                                                                                                   \
-    MUTILS_ASSERTION_ERROR(                                                                                            \
-        a_eval operator_symbol b_eval,                                                                                 \
-        "MUTILS_ASSERT." operator_name "( " COMPTIME_STRINGIFY(a) ", " COMPTIME_STRINGIFY(b) " )  -> [" +              \
-            mutils::stringify(a_eval) + " " #operator_symbol " " + mutils::stringify(b_eval) + "] evaluated to false", \
-        errmsg);
+    {                                                                                                                  \
+      auto __$a_eval = a;                                                                                                 \
+      auto __$b_eval = b;                                                                                                 \
+      MUTILS_ASSERTION_ERROR(a_eval operator_symbol b_eval,                                                            \
+                             "MUTILS_ASSERT." operator_name                                                            \
+                             "( " COMPTIME_STRINGIFY(a) ", " COMPTIME_STRINGIFY(b) " )  -> [" +                        \
+                                 mutils::stringify(__$a_eval) + " " #operator_symbol " " + mutils::stringify(__$b_eval) +    \
+                                 "] evaluated to false",                                                               \
+                             errmsg);                                                                                  \
+    }
 
 
 #  define MUTILS_ASSERT(expr, error)                                                                                   \
@@ -54,15 +57,15 @@
 #  define MUTILS_ASSERT_NOT(expr, error)                                                                               \
     MUTILS_ASSERTION_ERROR(!(bool)(expr), "MUTILS_ASSERT.false " COMPTIME_STRINGIFY(expr), error)
 
-#  define MUTILS_ASSERT_EQ(a, b, error)  MUTILS_BINARY_ASSERTION_ERROR(a, b, "equal", ==, error) 
+#  define MUTILS_ASSERT_EQ(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "equal", ==, error)
 
 #  define MUTILS_ASSERT_NEQ(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "not_equal", !=, error)
 
-#define MUTILS_ASSERT_GT(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "greater", >, error)
-#define MUTILS_ASSERT_LT(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "lesser", <, error)
+#  define MUTILS_ASSERT_GT(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "greater", >, error)
+#  define MUTILS_ASSERT_LT(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "lesser", <, error)
 
-#define MUTILS_ASSERT_GTE(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "greater_eq", >=, error)
-#define MUTILS_ASSERT_LTE(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "lesser_eq", <=, error)
+#  define MUTILS_ASSERT_GTE(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "greater_eq", >=, error)
+#  define MUTILS_ASSERT_LTE(a, b, error) MUTILS_BINARY_ASSERTION_ERROR(a, b, "lesser_eq", <=, error)
 
 #else
 
