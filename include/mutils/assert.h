@@ -42,7 +42,7 @@
     {                                                                                                                  \
       auto __$a_eval = a;                                                                                                 \
       auto __$b_eval = b;                                                                                                 \
-      MUTILS_ASSERTION_ERROR(a_eval operator_symbol b_eval,                                                            \
+      MUTILS_ASSERTION_ERROR(__$a_eval operator_symbol __$b_eval,                                                            \
                              "MUTILS_ASSERT." operator_name                                                            \
                              "( " COMPTIME_STRINGIFY(a) ", " COMPTIME_STRINGIFY(b) " )  -> [" +                        \
                                  mutils::stringify(__$a_eval) + " " #operator_symbol " " + mutils::stringify(__$b_eval) +    \
