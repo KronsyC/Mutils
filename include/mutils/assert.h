@@ -35,18 +35,17 @@
       const auto message = std::string("[[Assertion Error @ " __FILE__ ":" COMPTIME_STRINGIFY(__LINE__) " ]] :: ") +   \
                            std::string(ASSERTION_REASON) + "\n\t" + std::string(errmsg);                               \
       mutils::PANIC(message);                                                                                          \
-      exit(1);                                                                                                         \
     }
 
 #  define MUTILS_BINARY_ASSERTION_ERROR(a, b, operator_name, operator_symbol, errmsg)                                  \
     {                                                                                                                  \
-      auto __$a_eval = a;                                                                                                 \
-      auto __$b_eval = b;                                                                                                 \
-      MUTILS_ASSERTION_ERROR(__$a_eval operator_symbol __$b_eval,                                                            \
+      auto __$a_eval = a;                                                                                              \
+      auto __$b_eval = b;                                                                                              \
+      MUTILS_ASSERTION_ERROR(__$a_eval operator_symbol __$b_eval,                                                      \
                              "MUTILS_ASSERT." operator_name                                                            \
                              "( " COMPTIME_STRINGIFY(a) ", " COMPTIME_STRINGIFY(b) " )  -> [" +                        \
-                                 mutils::stringify(__$a_eval) + " " #operator_symbol " " + mutils::stringify(__$b_eval) +    \
-                                 "] evaluated to false",                                                               \
+                                 mutils::stringify(__$a_eval) + " " #operator_symbol " " +                             \
+                                 mutils::stringify(__$b_eval) + "] evaluated to false",                                \
                              errmsg);                                                                                  \
     }
 
@@ -80,5 +79,3 @@
 
 #  define MUTILS_ASSERT_GTE(a, b, error)
 #  define MUTILS_ASSERT_LTE(a, b, error)
-
-#endif
