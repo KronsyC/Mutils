@@ -79,3 +79,5 @@
 
 #  define MUTILS_ASSERT_GTE(a, b, error)
 #  define MUTILS_ASSERT_LTE(a, b, error)
+
+#endif

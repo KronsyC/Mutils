@@ -21,30 +21,56 @@
 
 #pragma once
 
-
+#include <iomanip>
 #include <sstream>
 #include <string>
 #include <type_traits>
 
 namespace mutils {
 
+
 template <typename T>
 concept IsJavaStyleStringCastable = requires(std::string& tgt, T val) { tgt = val.toString(); };
 
-template<typename T>
-concept IsSTLToStringCompatible = requires(T val){ std::to_string(val); };
+template <typename T>
+concept IsSTLToStringCompatible = requires(T val) { std::to_string(val); };
 
-template<typename T>
-concept IsStreamable = requires(T val, std::stringstream ss){ ss << val; };
+template <typename T>
+concept IsStreamable = requires(T val, std::stringstream ss) { ss << val; };
 
-template<typename T>
+template <typename T>
 concept IsStringCastable = std::is_convertible_v<T, std::string>;
+
+template <typename T>
+std::string stringify(T val)
+  requires std::is_same_v<T, char>
+{
+  unsigned char c = val;
+
+  // unprintable ascii / represent as hex bytes
+  if (c <= 31 || c >= 127) {
+    std::stringstream ss;
+    ss << std::hex << (int)c;
+    return "\\0x" + ss.str();
+  }
+  // backslash / use double backslash to disambiguate from hex bytes
+  else if (c == '\\') {
+    return "\\\\";
+  }
+  // default case, just stringify
+  else {
+    std::string ret;
+    ret += c;
+    return ret;
+  }
+}
+
 //
 // Cast the 'val' to a string using the `operator std::string` function
 //
 template <typename T>
 std::string stringify(T val)
-  requires IsStringCastable<T>
+  requires IsStringCastable<T> && (!std::is_same_v<T, char>)
 {
   // Implicit/Explicit castability
   return std::string(val);
@@ -54,8 +80,9 @@ std::string stringify(T val)
 // Cast the 'val' to a string using the `std::to_string` function
 //
 
-template<typename T>
-std::string stringify(T val) requires IsSTLToStringCompatible<T> && (!IsStringCastable<T>)
+template <typename T>
+std::string stringify(T val)
+  requires IsSTLToStringCompatible<T> && (!IsStringCastable<T>) && (!std::is_same_v<T, char>)
 {
   return std::to_string(val);
 }
@@ -66,18 +93,21 @@ std::string stringify(T val) requires IsSTLToStringCompatible<T> && (!IsStringCa
 
 template <typename T>
 std::string stringify(T val)
-  requires IsJavaStyleStringCastable<T> && (!IsSTLToStringCompatible<T> && !IsStringCastable<T>)
+  requires IsJavaStyleStringCastable<T> &&
+           (!IsSTLToStringCompatible<T> && !IsStringCastable<T> && !std::is_same_v<T, char>)
 {
   // many people implement the toString function,
   // coming from java
   return val.toString();
 }
+
 //
 // Cast the 'val' to a string using the `operator<<(std::stringstream&)` function
 //
 template <typename T>
 std::string stringify(T val)
-  requires IsStreamable<T> && (!IsSTLToStringCompatible<T> && !IsStringCastable<T> && !IsJavaStyleStringCastable<T>)
+  requires IsStreamable<T> && (!IsSTLToStringCompatible<T> && !IsStringCastable<T> && !IsJavaStyleStringCastable<T> &&
+                               !std::is_same_v<T, char>)
 {
   std::stringstream ss;
   ss << val;
