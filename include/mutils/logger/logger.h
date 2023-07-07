@@ -22,9 +22,26 @@
 
 #pragma once
 
-#include "log_handler.h"
+#include<string>
+// #include "log_handler.h"
 
 
 namespace mutils{
+
+class LoggerInstance{
+public:
+
+  ///
+  /// Create a warn-level log
+  ///
+  void warn();
+  void error();
+  void debug();
+  void trace();
+  void info();
+  void fatal();
+};
+
+inline thread_local LoggerInstance logger;
 
 }

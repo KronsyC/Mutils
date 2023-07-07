@@ -25,7 +25,7 @@
 #include <sstream>
 #include <string>
 #include <type_traits>
-
+#include<ostream>
 namespace mutils {
 
 
@@ -36,7 +36,7 @@ template <typename T>
 concept IsSTLToStringCompatible = requires(T val) { std::to_string(val); };
 
 template <typename T>
-concept IsStreamable = requires(T val, std::stringstream ss) { ss << val; };
+concept IsStreamable = requires(T val, std::ostream& ss) { ss << val; };
 
 template <typename T>
 concept IsStringCastable = std::is_convertible_v<T, std::string>;
